@@ -1,4 +1,4 @@
-package com.auth0.samples.authapi.task;
+package com.auth0.samples.authapi.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +12,8 @@ public class Task {
 	private long id;
 	private String description;
 
-	protected Task() { }
+	protected Task() {
+	}
 
 	public Task(String description) {
 		this.description = description;
