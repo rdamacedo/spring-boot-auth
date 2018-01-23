@@ -84,4 +84,11 @@ public class UserServiceImpl implements UserService {
 			throw new NoPermissionException();
 		}
 	}
+
+	@Override
+	public void updateLastLogin(String username) {
+		ApplicationUser applicationUser = userRepository.findByUsername(username);
+		applicationUser.setLastLogin(new Date());
+		userRepository.save(applicationUser);
+	}
 }

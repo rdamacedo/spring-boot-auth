@@ -1,7 +1,9 @@
 package com.br.rmacedo.security;
 
 import com.br.rmacedo.domain.ApplicationUser;
+import com.br.rmacedo.service.UserServiceImpl;
 import com.br.rmacedo.service.interfaces.SecurityService;
+import com.br.rmacedo.service.interfaces.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,6 +26,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 	@Autowired
 	SecurityService securityService;
+
+	@Autowired
+	UserService userService;
 
 	public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
 		this.authenticationManager = authenticationManager;
@@ -52,6 +57,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 											FilterChain chain,
 											Authentication auth) throws IOException, ServletException {
 		res.addHeader(SecurityConstants.HEADER_STRING, securityService.generateToken(((User) auth.getPrincipal()).getUsername()));
+		userService.updateLastLogin(((User) auth.getPrincipal()).getUsername());
 	}
 
 }
