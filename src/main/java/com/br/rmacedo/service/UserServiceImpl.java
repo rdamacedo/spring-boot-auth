@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.naming.NoPermissionException;
+import java.util.Date;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -64,6 +65,23 @@ public class UserServiceImpl implements UserService {
 
 		if (applicationUser.getId() == id) {
 			userRepository.delete(id);
+		}
+	}
+
+	@Override
+	public ApplicationUser update(Long id, ApplicationUser user) throws NoPermissionException {
+		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+
+		String userEmail = (String) usernamePasswordAuthenticationToken.getPrincipal();
+		ApplicationUser applicationUser = userRepository.findByUsername(userEmail);
+
+		if (applicationUser.getId() == id) {
+			applicationUser.setPhones(user.getPhones());
+			//fixme: this should not be here, should be in db
+			applicationUser.setModified(new Date());
+			return userRepository.save(applicationUser);
+		} else {
+			throw new NoPermissionException();
 		}
 	}
 }

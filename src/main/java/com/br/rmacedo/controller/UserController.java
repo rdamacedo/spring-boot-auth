@@ -6,6 +6,8 @@ import com.br.rmacedo.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.naming.NoPermissionException;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -29,7 +31,7 @@ public class UserController {
 
 
 	@PutMapping("/{id}")
-	public ApplicationUser put(@PathVariable Long id, @RequestBody ApplicationUser user) {
+	public ApplicationUser put(@PathVariable Long id, @RequestBody ApplicationUser user) throws NoPermissionException {
 		return userService.update(id, user);
 	}
 

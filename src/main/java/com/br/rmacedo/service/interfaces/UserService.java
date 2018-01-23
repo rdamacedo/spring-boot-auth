@@ -15,5 +15,5 @@ public interface UserService {
 
 	void delete(Long id);
 
-	ApplicationUser update(Long id, ApplicationUser user);
+	ApplicationUser update(Long id, ApplicationUser user) throws NoPermissionException;
 }
