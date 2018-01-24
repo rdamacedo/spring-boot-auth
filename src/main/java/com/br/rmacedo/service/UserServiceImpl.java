@@ -32,6 +32,7 @@ public class UserServiceImpl implements UserService {
 			throw new UserExistsException();
 		}
 		user.setToken(securityService.generateToken(user.getUsername()));
+		securityService.autologin(user.getUsername(), pass);
 
 		return userRepository.save(user);
 	}
