@@ -20,7 +20,7 @@ public class UserController {
 	public UserController() {
 	}
 
-	@GetMapping("/")
+	@GetMapping("")
 	public List<ApplicationUser> list(@PathVariable Long id) throws Exception {
 		return userService.listAll();
 	}

@@ -25,12 +25,13 @@ public class UserServiceImpl implements UserService {
 	SecurityService securityService;
 
 	@Override
-	public ApplicationUser save(ApplicationUser user) throws UserExistsException {
-
+	public ApplicationUser save(ApplicationUser user) throws UserExistsException, NoPermissionException {
+		String pass = user.getPassword();
 		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		if (userRepository.findByUsername(user.getUsername()) != null) {
 			throw new UserExistsException();
 		}
+		user.setToken(securityService.generateToken(user.getUsername()));
 
 		return userRepository.save(user);
 	}

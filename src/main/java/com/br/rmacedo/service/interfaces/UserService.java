@@ -8,7 +8,7 @@ import javax.naming.NoPermissionException;
 import java.util.List;
 
 public interface UserService {
-	ApplicationUser save(ApplicationUser user) throws UserExistsException;
+	ApplicationUser save(ApplicationUser user) throws UserExistsException, NoPermissionException;
 
 	ApplicationUser findByUsername(String username);
 
