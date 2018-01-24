@@ -8,7 +8,7 @@ import javax.naming.NoPermissionException;
 public interface SecurityService {
 	String findLoggedInUsername();
 
-	UsernamePasswordAuthenticationToken getAuthenticatedUser();
+	String getAuthenticatedUser();
 
 	UsernamePasswordAuthenticationToken autologin(String username, String password) throws NoPermissionException;
 

@@ -72,7 +72,7 @@ public class UserServiceImplTest {
 		user.setId(id);
 
 		Mockito.when(securityService.getAuthenticatedUser())
-				.thenReturn(new UsernamePasswordAuthenticationToken("admin", null));
+				.thenReturn("admin");
 
 		Mockito.when(userRepository.findByUsername("admin")).thenReturn(user);
 

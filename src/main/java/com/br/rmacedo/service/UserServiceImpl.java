@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 
 import javax.naming.NoPermissionException;
 import java.util.Date;
+import java.util.List;
+
+import static com.sun.tools.javac.jvm.ByteCodes.ret;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -28,7 +31,6 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public ApplicationUser save(ApplicationUser user) throws UserExistsException {
 
-		String password = user.getPassword();
 		if (userRepository.findByUsername(user.getUsername()) != null) {
 			user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 			throw new UserExistsException();
@@ -44,9 +46,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public ApplicationUser getOne(Long id) throws NoPermissionException {
-		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = securityService.getAuthenticatedUser();
-
-		String userEmail = (String) usernamePasswordAuthenticationToken.getPrincipal();
+		String userEmail = getAuthenticatedUser();
 		ApplicationUser applicationUser = userRepository.findByUsername(userEmail);
 
 		if (applicationUser.getId() == id) {
@@ -56,13 +56,14 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+	private String getAuthenticatedUser() {
+		return securityService.getAuthenticatedUser();
+	}
 
 
 	@Override
 	public void delete(Long id) {
-		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = securityService.getAuthenticatedUser();
-
-		String userEmail = (String) usernamePasswordAuthenticationToken.getPrincipal();
+		String userEmail = getAuthenticatedUser();
 		ApplicationUser applicationUser = userRepository.findByUsername(userEmail);
 
 		if (applicationUser.getId() == id) {
@@ -72,9 +73,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public ApplicationUser update(Long id, ApplicationUser user) throws NoPermissionException {
-		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = securityService.getAuthenticatedUser();
-
-		String userEmail = (String) usernamePasswordAuthenticationToken.getPrincipal();
+		String userEmail = getAuthenticatedUser();
 		ApplicationUser applicationUser = userRepository.findByUsername(userEmail);
 
 		if (applicationUser.getId() == id) {
@@ -92,5 +91,10 @@ public class UserServiceImpl implements UserService {
 		ApplicationUser applicationUser = userRepository.findByUsername(username);
 		applicationUser.setLastLogin(new Date());
 		userRepository.save(applicationUser);
+	}
+
+	@Override
+	public List<ApplicationUser> listAll() {
+		return userRepository.findAll();
 	}
 }

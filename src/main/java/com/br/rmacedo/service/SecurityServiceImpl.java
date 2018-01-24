@@ -39,8 +39,9 @@ public class SecurityServiceImpl implements SecurityService {
 
 
 	@Override
-	public UsernamePasswordAuthenticationToken getAuthenticatedUser() {
-		return (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+	public String getAuthenticatedUser() {
+		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+		return (String) usernamePasswordAuthenticationToken.getPrincipal();
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.br.rmacedo.controller;
 
+import com.br.rmacedo.Application;
 import com.br.rmacedo.domain.ApplicationUser;
 import com.br.rmacedo.exception.UserExistsException;
 import com.br.rmacedo.service.interfaces.UserService;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.naming.NoPermissionException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -18,6 +20,11 @@ public class UserController {
 	public UserController() {
 	}
 
+	@GetMapping("/")
+	public List<ApplicationUser> list(@PathVariable Long id) throws Exception {
+		return userService.listAll();
+	}
+
 	@PostMapping("/sign-up")
 	public ApplicationUser signUp(@RequestBody ApplicationUser user) throws UserExistsException {
 		return userService.save(user);
@@ -25,7 +32,7 @@ public class UserController {
 
 
 	@GetMapping("/{id}")
-	public Object get(@PathVariable Long id) throws Exception {
+	public ApplicationUser get(@PathVariable Long id) throws Exception {
 		return userService.getOne(id);
 	}
 

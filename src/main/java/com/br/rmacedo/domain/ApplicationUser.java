@@ -20,6 +20,13 @@ public class ApplicationUser {
 	@OneToMany
 	private List<UserPhone> phones;
 
+	public ApplicationUser() {
+	}
+
+	public ApplicationUser(String username) {
+		this.username = username;
+	}
+
 	public long getId() {
 		return id;
 	}
