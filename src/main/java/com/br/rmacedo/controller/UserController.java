@@ -21,7 +21,7 @@ public class UserController {
 	}
 
 	@GetMapping("")
-	public List<ApplicationUser> list(@PathVariable Long id) throws Exception {
+	public List<ApplicationUser> list() throws Exception {
 		return userService.listAll();
 	}
 
