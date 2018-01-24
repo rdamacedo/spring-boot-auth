@@ -6,16 +6,12 @@ import com.br.rmacedo.repository.ApplicationUserRepository;
 import com.br.rmacedo.service.interfaces.SecurityService;
 import com.br.rmacedo.service.interfaces.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.naming.NoPermissionException;
 import java.util.Date;
 import java.util.List;
-
-import static com.sun.tools.javac.jvm.ByteCodes.ret;
 
 @Service
 public class UserServiceImpl implements UserService {
