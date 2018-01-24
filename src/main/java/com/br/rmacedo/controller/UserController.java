@@ -26,7 +26,7 @@ public class UserController {
 	}
 
 	@PostMapping("/sign-up")
-	public ApplicationUser signUp(@RequestBody ApplicationUser user) throws UserExistsException {
+	public ApplicationUser signUp(@RequestBody ApplicationUser user) throws UserExistsException, NoPermissionException {
 		return userService.save(user);
 	}
 
