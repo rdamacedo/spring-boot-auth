@@ -1,11 +1,13 @@
 package com.br.rmacedo.repository;
 
 import com.br.rmacedo.domain.ApplicationUser;
+import com.br.rmacedo.service.interfaces.SecurityService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.*;
@@ -21,6 +23,9 @@ public class ApplicationUserRepositoryTest {
 	@Autowired
 	private ApplicationUserRepository applicationUserRepository;
 
+
+	@MockBean
+	SecurityService securityService;
 
 	@Test
 	public void findByUsername() throws Exception {

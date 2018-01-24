@@ -27,8 +27,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public ApplicationUser save(ApplicationUser user) throws UserExistsException {
 
+		user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 		if (userRepository.findByUsername(user.getUsername()) != null) {
-			user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 			throw new UserExistsException();
 		}
 
