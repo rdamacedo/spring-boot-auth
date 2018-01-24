@@ -37,6 +37,12 @@ public class SecurityServiceImpl implements SecurityService {
 		return null;
 	}
 
+
+	@Override
+	public UsernamePasswordAuthenticationToken getAuthenticatedUser() {
+		return (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+	}
+
 	@Override
 	public UsernamePasswordAuthenticationToken autologin(String username, String password) throws NoPermissionException {
 		UserDetails userDetails = userDetailsService.loadUserByUsername(username);

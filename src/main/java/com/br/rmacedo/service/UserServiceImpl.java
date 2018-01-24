@@ -43,8 +43,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Object getOne(Long id) throws NoPermissionException {
-		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+	public ApplicationUser getOne(Long id) throws NoPermissionException {
+		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = securityService.getAuthenticatedUser();
 
 		String userEmail = (String) usernamePasswordAuthenticationToken.getPrincipal();
 		ApplicationUser applicationUser = userRepository.findByUsername(userEmail);
@@ -56,9 +56,11 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 
+
+
 	@Override
 	public void delete(Long id) {
-		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = securityService.getAuthenticatedUser();
 
 		String userEmail = (String) usernamePasswordAuthenticationToken.getPrincipal();
 		ApplicationUser applicationUser = userRepository.findByUsername(userEmail);
@@ -70,7 +72,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public ApplicationUser update(Long id, ApplicationUser user) throws NoPermissionException {
-		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = (UsernamePasswordAuthenticationToken) SecurityContextHolder.getContext().getAuthentication();
+		UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = securityService.getAuthenticatedUser();
 
 		String userEmail = (String) usernamePasswordAuthenticationToken.getPrincipal();
 		ApplicationUser applicationUser = userRepository.findByUsername(userEmail);

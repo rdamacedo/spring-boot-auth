@@ -11,7 +11,7 @@ public interface UserService {
 
 	ApplicationUser findByUsername(String username);
 
-	Object getOne(Long id) throws NoPermissionException;
+	ApplicationUser getOne(Long id) throws NoPermissionException;
 
 	void delete(Long id);
 

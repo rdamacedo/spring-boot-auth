@@ -14,6 +14,15 @@ public class UserPhone {
 	private String number;
 	private String ddd;
 
+
+	public UserPhone() {
+	}
+
+	public UserPhone(String number, String ddd) {
+		this.number = number;
+		this.ddd = ddd;
+	}
+
 	public String getNumber() {
 		return number;
 	}
